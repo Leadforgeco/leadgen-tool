@@ -35,7 +35,6 @@
     line-height: 1.6;
   }
 
-  /* ── BACKGROUND PATTERN ── */
   body::before {
     content: '';
     position: fixed;
@@ -55,7 +54,6 @@
     padding: 3rem 1.5rem 5rem;
   }
 
-  /* ── LOGO ── */
   .logo-wrap {
     display: flex;
     align-items: center;
@@ -95,7 +93,6 @@
     margin-top: 2px;
   }
 
-  /* ── HERO ── */
   .hero { margin-bottom: 2.75rem; }
 
   .hero-eyebrow {
@@ -128,14 +125,12 @@
     line-height: 1.65;
   }
 
-  /* ── DIVIDER ── */
   .divider {
     height: 1px;
     background: var(--border);
     margin: 2.5rem 0;
   }
 
-  /* ── FORM CARD ── */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -154,7 +149,6 @@
     border-bottom: 1px solid var(--border);
   }
 
-  /* ── FORM GRID ── */
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -212,7 +206,6 @@
     box-shadow: 0 0 0 3px rgba(184,76,30,0.12);
   }
 
-  /* ── VALIDATION ── */
   .field-error {
     font-size: 0.72rem;
     color: var(--accent);
@@ -228,7 +221,6 @@
 
   .field.has-error .field-error { display: block; }
 
-  /* ── SUBMIT BUTTON ── */
   .submit-wrap {
     margin-top: 1.75rem;
     padding-top: 1.5rem;
@@ -273,11 +265,9 @@
   }
   .btn-submit:not(:disabled):hover .btn-arrow { transform: translateX(3px); }
 
-  /* ── STATES ── */
   #form-panel, #loading-panel, #success-panel { display: none; }
   #form-panel { display: block; }
 
-  /* ── LOADING ── */
   #loading-panel {
     padding: 3rem 0;
     text-align: center;
@@ -320,7 +310,6 @@
     100% { content: ''; }
   }
 
-  /* ── SUCCESS ── */
   #success-panel {
     padding: 3rem 0 1.5rem;
     text-align: center;
@@ -400,7 +389,6 @@
 
   .btn-new:hover { background: var(--paper); color: var(--ink); }
 
-  /* ── TRUST BAR ── */
   .trust-bar {
     display: flex;
     align-items: center;
@@ -422,7 +410,6 @@
 
   .trust-item svg { flex-shrink: 0; }
 
-  /* ── FOOTER ── */
   footer {
     margin-top: 3rem;
     text-align: center;
@@ -430,7 +417,6 @@
     color: var(--ink-3);
   }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 520px) {
     .page { padding: 2rem 1rem 4rem; }
     .card { padding: 1.5rem 1.25rem; }
@@ -439,7 +425,6 @@
     .trust-bar { flex-wrap: wrap; gap: 0.75rem; }
   }
 
-  /* ── FADE ANIMATION ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -449,6 +434,9 @@
 </head>
 <body>
 <div class="page">
+
+  <!-- Hidden iframe for fallback form submission (bypasses CORS completely) -->
+  <iframe name="hidden_submit_frame" id="hidden_submit_frame" style="display:none;"></iframe>
 
   <!-- Logo -->
   <div class="logo-wrap">
@@ -479,6 +467,16 @@
 
     <!-- FORM PANEL -->
     <div id="form-panel">
+      <!-- Fallback form that submits directly (bypasses CORS) -->
+      <form id="fallback-form" action="https://hook.eu1.make.com/tb6668lahpg5al269w3e77tn6tenokti" method="POST" target="hidden_submit_frame" style="display:none;">
+        <input type="hidden" name="country" id="fallback_country">
+        <input type="hidden" name="sector" id="fallback_sector">
+        <input type="hidden" name="customer_type" id="fallback_customer_type">
+        <input type="hidden" name="keywords" id="fallback_keywords">
+        <input type="hidden" name="email" id="fallback_email">
+        <input type="hidden" name="timestamp" id="fallback_timestamp">
+      </form>
+
       <form id="lead-form" novalidate>
         <div class="form-grid">
 
@@ -661,24 +659,56 @@
       timestamp:     new Date().toISOString(),
     };
 
+    console.log('📤 Sending payload to webhook:', WEBHOOK_URL);
+    console.log('📦 Payload:', payload);
+
     submitBtn.disabled = true;
     show(loadPanel);
 
+    let success = false;
+
+    // METHOD 1: Try fetch WITHOUT no-cors (proper request)
     try {
-      await fetch(WEBHOOK_URL, {
+      console.log('🔄 Attempting fetch method...');
+      const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        mode: 'no-cors',
+        body: JSON.stringify(payload)
       });
-    } catch (err) {
-      console.warn('Webhook error (may be CORS-related, non-blocking):', err);
+
+      console.log('📡 Fetch response status:', response.status);
+
+      if (response.ok) {
+        console.log('✅ Fetch succeeded!');
+        success = true;
+      } else {
+        console.warn('⚠️ Fetch returned error status:', response.status);
+        const text = await response.text();
+        console.log('Response body:', text);
+      }
+    } catch (fetchError) {
+      console.warn('❌ Fetch failed (likely CORS):', fetchError.message);
+      console.log('🔄 Falling back to form submission method...');
+
+      // METHOD 2: Fallback - Use hidden form + iframe (bypasses CORS 100%)
+      document.getElementById('fallback_country').value = payload.country;
+      document.getElementById('fallback_sector').value = payload.sector;
+      document.getElementById('fallback_customer_type').value = payload.customer_type;
+      document.getElementById('fallback_keywords').value = payload.keywords;
+      document.getElementById('fallback_email').value = payload.email;
+      document.getElementById('fallback_timestamp').value = payload.timestamp;
+
+      document.getElementById('fallback-form').submit();
+      console.log('✅ Fallback form submitted (iframe method)');
+      success = true;
     }
 
+    // Show success after short delay (allows Make to process)
     setTimeout(() => {
       confirmEmail.textContent = email;
       show(successPanel);
-    }, 3000);
+      console.log('🎉 Success panel shown');
+    }, success ? 3000 : 1000);
   });
 
   function resetForm() {
@@ -691,6 +721,10 @@
     submitBtn.disabled = false;
     show(formPanel);
   }
+
+  // Debug: Confirm webhook URL is set
+  console.log('🚀 LeadForge loaded');
+  console.log('🔗 Webhook URL:', WEBHOOK_URL);
 </script>
 </body>
 </html>

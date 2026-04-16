@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LeadForge — B2B Lead Intelligence</title>
+<title>Smart Market Search — B2B Lead Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -123,12 +123,6 @@
     color: var(--ink-2);
     max-width: 480px;
     line-height: 1.65;
-  }
-
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 2.5rem 0;
   }
 
   .card {
@@ -265,7 +259,7 @@
   }
   .btn-submit:not(:disabled):hover .btn-arrow { transform: translateX(3px); }
 
-  #form-panel, #loading-panel, #success-panel { display: none; }
+  #form-panel, #loading-panel { display: none; }
   #form-panel { display: block; }
 
   #loading-panel {
@@ -310,85 +304,6 @@
     100% { content: ''; }
   }
 
-  #success-panel {
-    padding: 3rem 0 1.5rem;
-    text-align: center;
-  }
-
-  .success-icon {
-    width: 52px;
-    height: 52px;
-    background: var(--accent-light);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-  }
-
-  .success-icon svg { display: block; }
-
-  .success-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.55rem;
-    color: var(--ink);
-    letter-spacing: -0.01em;
-    margin-bottom: 0.6rem;
-    line-height: 1.2;
-  }
-
-  .success-sub {
-    font-size: 0.9rem;
-    color: var(--ink-2);
-    max-width: 360px;
-    margin: 0 auto 2rem;
-    line-height: 1.6;
-  }
-
-  .success-detail {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.78rem;
-    color: var(--ink-3);
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    padding: 0.35rem 0.9rem;
-  }
-
-  .success-detail-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  .btn-new {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 1.5rem;
-    padding: 0.55rem 1.1rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 400;
-    color: var(--ink-2);
-    background: transparent;
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-  }
-
-  .btn-new:hover { background: var(--paper); color: var(--ink); }
-
   .trust-bar {
     display: flex;
     align-items: center;
@@ -429,16 +344,14 @@
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  #loading-panel, #success-panel { animation: fadeUp 0.3s ease; }
+  #loading-panel { animation: fadeUp 0.3s ease; }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- Hidden iframe for fallback form submission (bypasses CORS completely) -->
   <iframe name="hidden_submit_frame" id="hidden_submit_frame" style="display:none;"></iframe>
 
-  <!-- Logo -->
   <div class="logo-wrap">
     <div class="logo-mark">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -449,25 +362,21 @@
       </svg>
     </div>
     <div class="logo-text">
-      LeadForge
+      Smart Market Search
       <span>B2B Intelligence Platform</span>
     </div>
   </div>
 
-  <!-- Hero -->
   <div class="hero">
     <div class="hero-eyebrow">Automated Lead Research</div>
     <h1>Find your next<br><em>ideal customers</em></h1>
-    <p>Enter your target market details below. Our engine will compile a qualified lead list and deliver a full report straight to your inbox.</p>
+    <p>Enter your target market details below. Our engine will compile a qualified lead list and deliver a full report.</p>
   </div>
 
-  <!-- Form Card -->
   <div class="card">
     <div class="card-title">Target market parameters</div>
 
-    <!-- FORM PANEL -->
     <div id="form-panel">
-      <!-- Fallback form that submits directly (bypasses CORS) -->
       <form id="fallback-form" action="https://hook.eu1.make.com/tb6668lahpg5al269w3e77tn6tenokti" method="POST" target="hidden_submit_frame" style="display:none;">
         <input type="hidden" name="country" id="fallback_country">
         <input type="hidden" name="sector" id="fallback_sector">
@@ -479,16 +388,15 @@
 
       <form id="lead-form" novalidate>
         <div class="form-grid">
-
           <div class="field full" id="f-country">
             <label for="country">Country</label>
-            <input type="text" id="country" name="country" placeholder="e.g. United Arab Emirates" autocomplete="off">
+            <input type="text" id="country" name="country" placeholder="e.g. Saudi Arabia" autocomplete="off">
             <span class="field-error">Please enter a target country.</span>
           </div>
 
           <div class="field full" id="f-sector">
             <label for="sector">Sector</label>
-            <input type="text" id="sector" name="sector" placeholder="e.g. Hydraulic Distributors" autocomplete="off">
+            <input type="text" id="sector" name="sector" placeholder="e.g. Hydraulic" autocomplete="off">
             <span class="field-error">Please enter a sector.</span>
           </div>
 
@@ -517,7 +425,6 @@
             <input type="text" id="email" name="email" placeholder="you@company.com" autocomplete="email">
             <span class="field-error">Please enter a valid email address.</span>
           </div>
-
         </div>
 
         <div class="submit-wrap">
@@ -542,56 +449,31 @@
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
-              Report in ~5 min
+              Results in seconds
             </div>
             <div class="trust-item">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
-              Delivered by email
+              AI-powered scoring
             </div>
           </div>
         </div>
       </form>
     </div>
 
-    <!-- LOADING PANEL -->
     <div id="loading-panel">
       <div class="spinner"></div>
-      <div class="loading-title">Processing your request</div>
-      <div class="loading-sub">This may take a few minutes<span class="loading-dots"></span></div>
+      <div class="loading-title">Generating your leads</div>
+      <div class="loading-sub">Analyzing companies<span class="loading-dots"></span></div>
     </div>
-
-    <!-- SUCCESS PANEL -->
-    <div id="success-panel">
-      <div class="success-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b84c1e" stroke-width="2.5">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-      </div>
-      <div class="success-title">Your report is on its way</div>
-      <div class="success-sub">Your lead report is being generated. You will receive an email with the download link shortly.</div>
-      <div class="success-detail">
-        <span class="success-detail-dot"></span>
-        Sent to <strong id="confirm-email" style="margin-left:3px; font-weight:500; color: var(--ink-2);"></strong>
-      </div>
-      <br>
-      <button class="btn-new" onclick="resetForm()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="1 4 1 10 7 10"></polyline>
-          <path d="M3.51 15a9 9 0 1 0 .49-4.95"></path>
-        </svg>
-        Generate another report
-      </button>
-    </div>
-
-  </div><!-- .card -->
+  </div>
 
   <footer>
-    &copy; 2025 LeadForge. All rights reserved. &nbsp;·&nbsp; leadforge.io
+    &copy; 2025 Smart Market Search &nbsp;·&nbsp; smartmarketsearch.com
   </footer>
-</div><!-- .page -->
+</div>
 
 <script>
   const WEBHOOK_URL = 'https://hook.eu1.make.com/tb6668lahpg5al269w3e77tn6tenokti';
@@ -599,12 +481,11 @@
   const form        = document.getElementById('lead-form');
   const formPanel   = document.getElementById('form-panel');
   const loadPanel   = document.getElementById('loading-panel');
-  const successPanel= document.getElementById('success-panel');
   const submitBtn   = document.getElementById('submit-btn');
-  const confirmEmail= document.getElementById('confirm-email');
 
   function show(panel) {
-    [formPanel, loadPanel, successPanel].forEach(p => p.style.display = 'none');
+    formPanel.style.display = 'none';
+    loadPanel.style.display = 'none';
     panel.style.display = 'block';
   }
 
@@ -614,7 +495,6 @@
 
   function validateForm() {
     let valid = true;
-
     const fields = [
       { id: 'f-country',  el: document.getElementById('country'),        check: v => v.trim().length > 0 },
       { id: 'f-sector',   el: document.getElementById('sector'),         check: v => v.trim().length > 0 },
@@ -631,7 +511,6 @@
         wrap.classList.remove('has-error');
       }
     });
-
     return valid;
   }
 
@@ -649,81 +528,56 @@
     if (!validateForm()) return;
 
     const email = document.getElementById('email').value.trim();
+    const country = document.getElementById('country').value.trim();
+    const sector = document.getElementById('sector').value.trim();
 
     const payload = {
-      country:       document.getElementById('country').value.trim(),
-      sector:        document.getElementById('sector').value.trim(),
+      country: country,
+      sector: sector,
       customer_type: document.getElementById('customer_type').value,
-      keywords:      document.getElementById('keywords').value.trim(),
-      email:         email,
-      timestamp:     new Date().toISOString(),
+      keywords: document.getElementById('keywords').value.trim(),
+      email: email,
+      timestamp: new Date().toISOString(),
     };
 
-    console.log('📤 Sending payload to webhook:', WEBHOOK_URL);
-    console.log('📦 Payload:', payload);
+    // Store search params for results page
+    sessionStorage.setItem('sms_search_country', country);
+    sessionStorage.setItem('sms_search_sector', sector);
+    sessionStorage.setItem('sms_search_email', email);
 
+    console.log('📤 Sending payload to webhook:', payload);
     submitBtn.disabled = true;
     show(loadPanel);
 
     let success = false;
 
-    // METHOD 1: Try fetch WITHOUT no-cors (proper request)
     try {
-      console.log('🔄 Attempting fetch method...');
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-
       console.log('📡 Fetch response status:', response.status);
-
-      if (response.ok) {
-        console.log('✅ Fetch succeeded!');
-        success = true;
-      } else {
-        console.warn('⚠️ Fetch returned error status:', response.status);
-        const text = await response.text();
-        console.log('Response body:', text);
-      }
+      if (response.ok) success = true;
     } catch (fetchError) {
-      console.warn('❌ Fetch failed (likely CORS):', fetchError.message);
-      console.log('🔄 Falling back to form submission method...');
-
-      // METHOD 2: Fallback - Use hidden form + iframe (bypasses CORS 100%)
+      console.warn('❌ Fetch failed, using fallback:', fetchError.message);
       document.getElementById('fallback_country').value = payload.country;
       document.getElementById('fallback_sector').value = payload.sector;
       document.getElementById('fallback_customer_type').value = payload.customer_type;
       document.getElementById('fallback_keywords').value = payload.keywords;
       document.getElementById('fallback_email').value = payload.email;
       document.getElementById('fallback_timestamp').value = payload.timestamp;
-
       document.getElementById('fallback-form').submit();
-      console.log('✅ Fallback form submitted (iframe method)');
       success = true;
     }
 
-    // Show success after short delay (allows Make to process)
+    // Redirect to results page after 2 seconds
     setTimeout(() => {
-      confirmEmail.textContent = email;
-      show(successPanel);
-      console.log('🎉 Success panel shown');
-    }, success ? 3000 : 1000);
+      window.location.href = 'results.html';
+    }, 2000);
   });
 
-  function resetForm() {
-    form.reset();
-    document.getElementById('keywords').value =
-      'coupling, ball valve, check valve, hydraulic fittings, quick coupling';
-    ['f-country','f-sector','f-type','f-email'].forEach(id => {
-      document.getElementById(id).classList.remove('has-error');
-    });
-    submitBtn.disabled = false;
-    show(formPanel);
-  }
-
-  // Debug: Confirm webhook URL is set
-  console.log('🚀 LeadForge loaded');
+  console.log('🚀 Smart Market Search loaded');
   console.log('🔗 Webhook URL:', WEBHOOK_URL);
 </script>
 </body>

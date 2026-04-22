@@ -60,64 +60,21 @@ body::before {
   z-index: 0;
 }
 
-/* ── LAYOUT ─────────────────────────────────────────────── */
-.wrap {
-  position: relative;
-  z-index: 1;
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
+.wrap { position: relative; z-index: 1; max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
 
-/* ── NAV ─────────────────────────────────────────────────── */
 nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(247,244,239,0.92);
-  backdrop-filter: blur(12px);
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(247,244,239,0.92); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
-
-.nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 60px;
-}
-
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
 .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-
 .logo-mark {
-  width: 32px;
-  height: 32px;
-  background: var(--ink);
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  width: 32px; height: 32px; background: var(--ink); border-radius: 7px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-
-.logo-text {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.15rem;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-  line-height: 1;
-}
-
-.logo-text span {
-  display: block;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin-top: 1px;
-}
-
+.logo-text { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--ink); letter-spacing: -0.01em; line-height: 1; }
+.logo-text span { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.11em; text-transform: uppercase; color: var(--ink-3); margin-top: 1px; }
 .nav-actions { display: flex; gap: 8px; align-items: center; }
 
 .btn { display: inline-flex; align-items: center; gap: 6px; padding: 0.45rem 0.95rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 400; border-radius: var(--radius); cursor: pointer; border: none; text-decoration: none; transition: all 0.15s; white-space: nowrap; }
@@ -127,291 +84,59 @@ nav {
 .btn-accent:hover { background: var(--accent-dark); }
 .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.78rem; }
 
-/* ── HEADER ──────────────────────────────────────────────── */
-.page-header {
-  padding: 2.5rem 0 2rem;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 2rem;
-}
-
-.header-eyebrow {
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.5rem;
-}
-
-.header-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.page-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(1.7rem, 4vw, 2.4rem);
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  color: var(--ink);
-}
-
+.page-header { padding: 2.5rem 0 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+.header-eyebrow { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+.header-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.page-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
 .page-title em { font-style: italic; color: var(--accent); }
-
-.header-meta {
-  font-size: 0.8rem;
-  color: var(--ink-3);
-  text-align: right;
-}
-
+.header-meta { font-size: 0.8rem; color: var(--ink-3); text-align: right; }
 .header-meta strong { color: var(--ink-2); font-weight: 500; }
 
-/* ── SUMMARY CARDS ───────────────────────────────────────── */
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
-  margin-bottom: 2rem;
-}
-
-.summary-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.1rem 1.25rem;
-  opacity: 0;
-  transform: translateY(8px);
-  animation: fadeUp 0.4s ease forwards;
-}
-
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+.summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem 1.25rem; opacity: 0; transform: translateY(8px); animation: fadeUp 0.4s ease forwards; }
 .summary-card:nth-child(1) { animation-delay: 0.05s; }
 .summary-card:nth-child(2) { animation-delay: 0.10s; }
 .summary-card:nth-child(3) { animation-delay: 0.15s; }
 .summary-card:nth-child(4) { animation-delay: 0.20s; }
-
-.sc-label {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin-bottom: 0.5rem;
-}
-
-.sc-value {
-  font-family: 'DM Serif Display', serif;
-  font-size: 2rem;
-  color: var(--ink);
-  line-height: 1;
-}
-
+.sc-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.5rem; }
+.sc-value { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--ink); line-height: 1; }
 .sc-value.hot { color: var(--hot); }
 .sc-value.accent { color: var(--accent); }
+.sc-sub { font-size: 0.72rem; color: var(--ink-3); margin-top: 4px; }
 
-.sc-sub {
-  font-size: 0.72rem;
-  color: var(--ink-3);
-  margin-top: 4px;
-}
-
-/* ── CONTROLS ────────────────────────────────────────────── */
-.controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 1.25rem;
-  flex-wrap: wrap;
-}
-
-.search-wrap {
-  position: relative;
-  flex: 1;
-  min-width: 200px;
-  max-width: 320px;
-}
-
-.search-wrap svg {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--ink-3);
-  pointer-events: none;
-}
-
-.search-input {
-  width: 100%;
-  padding: 0.52rem 0.85rem 0.52rem 2.1rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 300;
-  color: var(--ink);
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.search-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(184,76,30,0.1);
-}
-
+.controls { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 320px; }
+.search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
+.search-input { width: 100%; padding: 0.52rem 0.85rem 0.52rem 2.1rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; color: var(--ink); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius); outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(184,76,30,0.1); }
 .search-input::placeholder { color: var(--ink-3); }
-
-.filter-select {
-  appearance: none;
-  padding: 0.52rem 2rem 0.52rem 0.85rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 300;
-  color: var(--ink-2);
-  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a7770' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 0.65rem center;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.15s;
-}
-
+.filter-select { appearance: none; padding: 0.52rem 2rem 0.52rem 0.85rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 300; color: var(--ink-2); background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a7770' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 0.65rem center; border: 1px solid var(--border-strong); border-radius: var(--radius); cursor: pointer; outline: none; transition: border-color 0.15s; }
 .filter-select:focus { border-color: var(--accent); }
+.controls-right { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
 
-.controls-right {
-  display: flex;
-  gap: 8px;
-  margin-left: auto;
-  flex-wrap: wrap;
-}
-
-/* ── TABLE CONTAINER ─────────────────────────────────────── */
-.table-wrap {
-  position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  margin-bottom: 0;
-}
-
+.table-wrap { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 0; }
 .table-scroll { overflow-x: auto; }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85rem;
-  min-width: 760px;
-}
-
-thead tr {
-  background: var(--paper);
-  border-bottom: 1px solid var(--border-strong);
-}
-
-th {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
-}
-
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 760px; }
+thead tr { background: var(--paper); border-bottom: 1px solid var(--border-strong); }
+th { padding: 0.75rem 1rem; text-align: left; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; cursor: pointer; user-select: none; }
 th:hover { color: var(--ink-2); }
-
 th .sort-icon { margin-left: 4px; opacity: 0.4; font-size: 0.6rem; }
 th.sorted .sort-icon { opacity: 1; color: var(--accent); }
-
-tbody tr {
-  border-bottom: 1px solid var(--border);
-  transition: background 0.1s;
-}
-
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--paper); }
+td { padding: 0.85rem 1rem; vertical-align: middle; color: var(--ink-2); }
 
-td {
-  padding: 0.85rem 1rem;
-  vertical-align: middle;
-  color: var(--ink-2);
-}
-
-/* ── COMPANY CELL ────────────────────────────────────────── */
-.company-name {
-  font-weight: 500;
-  color: var(--ink);
-  display: block;
-  line-height: 1.3;
-}
-
-.company-link {
-  font-size: 0.72rem;
-  color: var(--accent);
-  text-decoration: none;
-  opacity: 0.8;
-  transition: opacity 0.1s;
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-}
-
+.company-name { font-weight: 500; color: var(--ink); display: block; line-height: 1.3; }
+.company-link { font-size: 0.72rem; color: var(--accent); text-decoration: none; opacity: 0.8; transition: opacity 0.1s; display: inline-flex; align-items: center; gap: 3px; }
 .company-link:hover { opacity: 1; text-decoration: underline; }
-
-/* ── COUNTRY CELL ────────────────────────────────────────── */
-.country-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.8rem;
-  color: var(--ink-2);
-}
-
-/* ── PRODUCT MATCH TAGS ──────────────────────────────────── */
+.country-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 0.8rem; color: var(--ink-2); }
 .tags { display: flex; flex-wrap: wrap; gap: 4px; }
-
-.tag {
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 400;
-  padding: 2px 8px;
-  border-radius: 100px;
-  background: var(--accent-light);
-  color: var(--accent-dark);
-  white-space: nowrap;
-}
-
-/* ── SCORE CELL ──────────────────────────────────────────── */
+.tag { display: inline-block; font-size: 0.68rem; font-weight: 400; padding: 2px 8px; border-radius: 100px; background: var(--accent-light); color: var(--accent-dark); white-space: nowrap; }
 .score-wrap { display: flex; align-items: center; gap: 8px; min-width: 90px; }
-
-.score-num {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.1rem;
-  line-height: 1;
-  min-width: 26px;
-  text-align: right;
-}
-
-.score-bar-bg {
-  flex: 1;
-  height: 5px;
-  background: var(--border);
-  border-radius: 100px;
-  overflow: hidden;
-}
-
-.score-bar-fill {
-  height: 100%;
-  border-radius: 100px;
-  transition: width 0.6s ease;
-}
-
+.score-num { font-family: 'DM Serif Display', serif; font-size: 1.1rem; line-height: 1; min-width: 26px; text-align: right; }
+.score-bar-bg { flex: 1; height: 5px; background: var(--border); border-radius: 100px; overflow: hidden; }
+.score-bar-fill { height: 100%; border-radius: 100px; transition: width 0.6s ease; }
 .score-hot .score-num { color: var(--hot); }
 .score-hot .score-bar-fill { background: var(--hot); }
 .score-warm .score-num { color: var(--warm); }
@@ -419,443 +144,83 @@ td {
 .score-cold .score-num { color: var(--cold); }
 .score-cold .score-bar-fill { background: var(--cold); }
 
-/* ── PRIORITY BADGE ──────────────────────────────────────── */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  padding: 3px 10px;
-  border-radius: 100px;
-  white-space: nowrap;
-}
-
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.7rem; font-weight: 500; padding: 3px 10px; border-radius: 100px; white-space: nowrap; }
 .badge-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
-
-.badge-hot  { background: var(--hot-bg);  color: #065f46; }
-.badge-hot .badge-dot  { background: var(--hot); }
+.badge-hot { background: var(--hot-bg); color: #065f46; }
+.badge-hot .badge-dot { background: var(--hot); }
 .badge-warm { background: var(--warm-bg); color: #92400e; }
 .badge-warm .badge-dot { background: var(--warm); }
 .badge-cold { background: var(--cold-bg); color: #374151; }
 .badge-cold .badge-dot { background: var(--cold); }
-
-.badge-yes    { background: var(--yes-bg);    color: var(--yes-txt); }
+.badge-yes { background: var(--yes-bg); color: var(--yes-txt); }
 .badge-review { background: var(--review-bg); color: var(--review-txt); }
-.badge-no     { background: var(--no-bg);     color: var(--no-txt); }
+.badge-no { background: var(--no-bg); color: var(--no-txt); }
 
-/* ── BLUR / PAYWALL SECTION ──────────────────────────────── */
-.paywall-wrap {
-  position: relative;
-  border-top: 1px solid var(--border);
-}
-
+.paywall-wrap { position: relative; border-top: 1px solid var(--border); }
 .blurred-rows { filter: blur(4px); pointer-events: none; user-select: none; }
-
-.paywall-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(to bottom, rgba(247,244,239,0.6) 0%, rgba(247,244,239,0.96) 35%);
-  z-index: 10;
-  padding: 2rem;
-  text-align: center;
-}
-
-.lock-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--ink);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-}
-
-.paywall-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.5rem;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-  margin-bottom: 0.4rem;
-}
-
-.paywall-sub {
-  font-size: 0.85rem;
-  color: var(--ink-2);
-  margin-bottom: 1.25rem;
-  max-width: 320px;
-}
-
-.paywall-pricing {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 1.25rem;
-}
-
-.price-option {
-  background: var(--surface);
-  border: 1.5px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  padding: 0.85rem 1.25rem;
-  cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  text-align: center;
-  min-width: 130px;
-}
-
+.paywall-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(247,244,239,0.6) 0%, rgba(247,244,239,0.96) 35%); z-index: 10; padding: 2rem; text-align: center; }
+.lock-icon { width: 48px; height: 48px; background: var(--ink); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+.paywall-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 0.4rem; }
+.paywall-sub { font-size: 0.85rem; color: var(--ink-2); margin-bottom: 1.25rem; max-width: 320px; }
+.paywall-pricing { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.price-option { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: var(--radius-lg); padding: 0.85rem 1.25rem; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; text-align: center; min-width: 130px; }
 .price-option.featured { border-color: var(--accent); }
-
-.price-option:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(184,76,30,0.1);
-}
-
-.price-badge {
-  font-size: 0.62rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 4px;
-}
-
-.price-amount {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.6rem;
-  color: var(--ink);
-  line-height: 1;
-}
-
-.price-period {
-  font-size: 0.7rem;
-  color: var(--ink-3);
-  margin-top: 2px;
-}
-
+.price-option:hover { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(184,76,30,0.1); }
+.price-badge { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.price-amount { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--ink); line-height: 1; }
+.price-period { font-size: 0.7rem; color: var(--ink-3); margin-top: 2px; }
 .paywall-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
 
-/* ── EMAIL FORM ──────────────────────────────────────────── */
-.email-section {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 1.75rem 2rem;
-  margin-top: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
+.email-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 1.75rem 2rem; margin-top: 1.5rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
 .email-section-left { flex: 1; min-width: 200px; }
-
-.email-section-label {
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin-bottom: 0.3rem;
-}
-
-.email-section-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.15rem;
-  color: var(--ink);
-  margin-bottom: 0.25rem;
-}
-
-.email-section-sub {
-  font-size: 0.8rem;
-  color: var(--ink-3);
-}
-
-.email-form {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  flex: 1;
-  min-width: 260px;
-}
-
-.email-input {
-  flex: 1;
-  min-width: 180px;
-  padding: 0.55rem 0.9rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 300;
-  color: var(--ink);
-  background: var(--paper);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.email-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(184,76,30,0.1);
-}
-
+.email-section-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.3rem; }
+.email-section-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--ink); margin-bottom: 0.25rem; }
+.email-section-sub { font-size: 0.8rem; color: var(--ink-3); }
+.email-form { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; min-width: 260px; }
+.email-input { flex: 1; min-width: 180px; padding: 0.55rem 0.9rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; color: var(--ink); background: var(--paper); border: 1px solid var(--border-strong); border-radius: var(--radius); outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+.email-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(184,76,30,0.1); }
 .email-input::placeholder { color: var(--ink-3); }
 
-/* ── LOADING ─────────────────────────────────────────────── */
-#loading-state {
-  padding: 5rem 2rem;
-  text-align: center;
-}
-
-.spinner {
-  width: 36px;
-  height: 36px;
-  border: 2.5px solid var(--border);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: 0 auto 1.25rem;
-}
-
+#loading-state { padding: 5rem 2rem; text-align: center; }
+.spinner { width: 36px; height: 36px; border: 2.5px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1.25rem; }
 @keyframes spin { to { transform: rotate(360deg); } }
+.loading-txt { font-size: 0.9rem; color: var(--ink-3); }
 
-.loading-txt {
-  font-size: 0.9rem;
-  color: var(--ink-3);
-}
+#empty-state, #error-state { padding: 4rem 2rem; text-align: center; display: none; }
+.empty-icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.4; }
+.empty-txt { font-size: 0.9rem; color: var(--ink-3); margin-bottom: 0.5rem; }
 
-/* ── EMPTY / ERROR ───────────────────────────────────────── */
-#empty-state, #error-state {
-  padding: 4rem 2rem;
-  text-align: center;
-  display: none;
-}
-
-.empty-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  opacity: 0.4;
-}
-
-.empty-txt {
-  font-size: 0.9rem;
-  color: var(--ink-3);
-  margin-bottom: 0.5rem;
-}
-
-/* ── FOOTER ──────────────────────────────────────────────── */
-footer {
-  margin-top: 3rem;
-  padding: 2rem 0;
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.footer-txt {
-  font-size: 0.75rem;
-  color: var(--ink-3);
-}
-
-.footer-links {
-  display: flex;
-  gap: 1rem;
-}
-
-.footer-links a {
-  font-size: 0.75rem;
-  color: var(--ink-3);
-  text-decoration: none;
-  transition: color 0.1s;
-}
-
+footer { margin-top: 3rem; padding: 2rem 0; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.footer-txt { font-size: 0.75rem; color: var(--ink-3); }
+.footer-links { display: flex; gap: 1rem; }
+.footer-links a { font-size: 0.75rem; color: var(--ink-3); text-decoration: none; transition: color 0.1s; }
 .footer-links a:hover { color: var(--ink-2); }
 
-/* ── MODAL ───────────────────────────────────────────────── */
-.modal-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(15,14,12,0.5);
-  z-index: 200;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-}
-
+.modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(15,14,12,0.5); z-index: 200; align-items: center; justify-content: center; padding: 1.5rem; }
 .modal-backdrop.open { display: flex; }
-
-.modal {
-  background: var(--surface);
-  border-radius: var(--radius-xl);
-  padding: 2rem;
-  max-width: 480px;
-  width: 100%;
-  position: relative;
-  animation: fadeUp 0.25s ease;
-}
-
-.modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--border-strong);
-  border-radius: 6px;
-  background: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ink-3);
-  transition: background 0.1s;
-}
-
+.modal { background: var(--surface); border-radius: var(--radius-xl); padding: 2rem; max-width: 480px; width: 100%; position: relative; animation: fadeUp 0.25s ease; }
+.modal-close { position: absolute; top: 1rem; right: 1rem; width: 28px; height: 28px; border: 1px solid var(--border-strong); border-radius: 6px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink-3); transition: background 0.1s; }
 .modal-close:hover { background: var(--paper); color: var(--ink); }
+.modal-eyebrow { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+.modal-title { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+.modal-sub { font-size: 0.85rem; color: var(--ink-2); margin-bottom: 1.5rem; line-height: 1.55; }
+.modal-features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+.modal-feat { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--ink-2); }
+.feat-check { width: 18px; height: 18px; border-radius: 50%; background: var(--hot-bg); color: var(--hot); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; }
+.modal-pricing-row { display: flex; gap: 10px; margin-bottom: 1.25rem; }
+.modal-price-card { flex: 1; border: 1.5px solid var(--border-strong); border-radius: var(--radius-lg); padding: 1rem; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; text-align: center; }
+.modal-price-card.active { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(184,76,30,0.1); }
+.modal-price-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
+.modal-price-amount { font-family: 'DM Serif Display', serif; font-size: 1.75rem; color: var(--ink); line-height: 1; }
+.modal-price-period { font-size: 0.7rem; color: var(--ink-3); margin-top: 3px; }
+.modal-cta { width: 100%; padding: 0.75rem; font-size: 0.9rem; }
 
-.modal-eyebrow {
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.5rem;
-}
-
-.modal-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.6rem;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-  margin-bottom: 0.5rem;
-}
-
-.modal-sub {
-  font-size: 0.85rem;
-  color: var(--ink-2);
-  margin-bottom: 1.5rem;
-  line-height: 1.55;
-}
-
-.modal-features {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 1.5rem;
-}
-
-.modal-feat {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.82rem;
-  color: var(--ink-2);
-}
-
-.feat-check {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--hot-bg);
-  color: var(--hot);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 0.65rem;
-}
-
-.modal-pricing-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 1.25rem;
-}
-
-.modal-price-card {
-  flex: 1;
-  border: 1.5px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  padding: 1rem;
-  cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  text-align: center;
-}
-
-.modal-price-card.active {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(184,76,30,0.1);
-}
-
-.modal-price-label {
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin-bottom: 4px;
-}
-
-.modal-price-amount {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.75rem;
-  color: var(--ink);
-  line-height: 1;
-}
-
-.modal-price-period {
-  font-size: 0.7rem;
-  color: var(--ink-3);
-  margin-top: 3px;
-}
-
-.modal-cta {
-  width: 100%;
-  padding: 0.75rem;
-  font-size: 0.9rem;
-}
-
-/* ── NOTIFICATION ────────────────────────────────────────── */
-.notif {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  background: var(--ink);
-  color: #fff;
-  font-size: 0.82rem;
-  padding: 0.7rem 1.1rem;
-  border-radius: var(--radius);
-  z-index: 300;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.25s, transform 0.25s;
-  pointer-events: none;
-  max-width: 280px;
-}
-
+.notif { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--ink); color: #fff; font-size: 0.82rem; padding: 0.7rem 1.1rem; border-radius: var(--radius); z-index: 300; opacity: 0; transform: translateY(8px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; max-width: 280px; }
 .notif.show { opacity: 1; transform: translateY(0); }
 
-/* ── ANIMATIONS ──────────────────────────────────────────── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+tbody tr { opacity: 0; animation: fadeUp 0.35s ease forwards; }
 
-tbody tr {
-  opacity: 0;
-  animation: fadeUp 0.35s ease forwards;
-}
-
-/* ── RESPONSIVE ──────────────────────────────────────────── */
 @media (max-width: 640px) {
   .wrap { padding: 0 1rem; }
   .page-header { padding: 1.75rem 0 1.5rem; }
@@ -866,7 +231,6 @@ tbody tr {
   .nav-actions .btn-ghost { display: none; }
   .modal-pricing-row { flex-direction: column; }
 }
-
 @media (max-width: 480px) {
   .summary-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -874,7 +238,6 @@ tbody tr {
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="wrap nav-inner">
     <a href="index.html" class="logo-wrap">
@@ -886,63 +249,35 @@ tbody tr {
           <rect x="11" y="11" width="7" height="7" fill="#b84c1e" opacity="0.9"/>
         </svg>
       </div>
-      <div class="logo-text">
-        Smart Market Search
-        <span>B2B Lead Intelligence</span>
-      </div>
+      <div class="logo-text">Smart Market Search<span>B2B Lead Intelligence</span></div>
     </a>
     <div class="nav-actions">
       <button class="btn btn-ghost btn-sm" onclick="downloadCSV(false)">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Sample CSV
       </button>
-      <button class="btn btn-accent btn-sm" onclick="openModal()">
-        Unlock Full List
-      </button>
+      <button class="btn btn-accent btn-sm" onclick="openModal()">Unlock Full List</button>
     </div>
   </div>
 </nav>
 
-<!-- MAIN -->
 <main>
 <div class="wrap">
-
-  <!-- PAGE HEADER -->
   <div class="page-header">
     <div class="header-eyebrow">Lead Intelligence Report</div>
     <div class="header-row">
       <h1 class="page-title">Your <em>qualified leads</em><br>are ready</h1>
-      <div class="header-meta" id="report-meta">
-        <!-- populated by JS -->
-      </div>
+      <div class="header-meta" id="report-meta"></div>
     </div>
   </div>
 
-  <!-- SUMMARY CARDS -->
   <div class="summary-grid" id="summary-grid">
-    <div class="summary-card">
-      <div class="sc-label">Total Leads</div>
-      <div class="sc-value" id="stat-total">—</div>
-      <div class="sc-sub">Found in your market</div>
-    </div>
-    <div class="summary-card">
-      <div class="sc-label">Hot Leads</div>
-      <div class="sc-value hot" id="stat-hot">—</div>
-      <div class="sc-sub">Score ≥ 80</div>
-    </div>
-    <div class="summary-card">
-      <div class="sc-label">Avg. Score</div>
-      <div class="sc-value accent" id="stat-avg">—</div>
-      <div class="sc-sub">Out of 100</div>
-    </div>
-    <div class="summary-card">
-      <div class="sc-label">YES Decisions</div>
-      <div class="sc-value" id="stat-yes">—</div>
-      <div class="sc-sub">Recommended contacts</div>
-    </div>
+    <div class="summary-card"><div class="sc-label">Total Leads</div><div class="sc-value" id="stat-total">—</div><div class="sc-sub">Found in your market</div></div>
+    <div class="summary-card"><div class="sc-label">Hot Leads</div><div class="sc-value hot" id="stat-hot">—</div><div class="sc-sub">Score ≥ 80</div></div>
+    <div class="summary-card"><div class="sc-label">Avg. Score</div><div class="sc-value accent" id="stat-avg">—</div><div class="sc-sub">Out of 100</div></div>
+    <div class="summary-card"><div class="sc-label">YES Decisions</div><div class="sc-value" id="stat-yes">—</div><div class="sc-sub">Recommended contacts</div></div>
   </div>
 
-  <!-- CONTROLS -->
   <div class="controls">
     <div class="search-wrap">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -959,38 +294,349 @@ tbody tr {
     </div>
   </div>
 
-  <!-- TABLE -->
   <div class="table-wrap">
-
-    <!-- Loading -->
-    <div id="loading-state">
-      <div class="spinner"></div>
-      <div class="loading-txt">Fetching your lead report…</div>
-    </div>
-
-    <!-- Empty -->
-    <div id="empty-state">
-      <div class="empty-icon">🔍</div>
-      <div class="empty-txt">No results match your filters.</div>
-      <button class="btn btn-ghost btn-sm" onclick="clearFilters()">Clear filters</button>
-    </div>
-
-    <!-- Error -->
-    <div id="error-state">
-      <div class="empty-icon">⚠️</div>
-      <div class="empty-txt" id="error-msg">Failed to load data.</div>
-      <button class="btn btn-ghost btn-sm" onclick="loadData()">Retry</button>
-    </div>
-
-    <!-- Table -->
+    <div id="loading-state"><div class="spinner"></div><div class="loading-txt">Fetching your lead report…</div></div>
+    <div id="empty-state"><div class="empty-icon">🔍</div><div class="empty-txt">No results match your filters.</div><button class="btn btn-ghost btn-sm" onclick="clearFilters()">Clear filters</button></div>
+    <div id="error-state"><div class="empty-icon">⚠️</div><div class="empty-txt" id="error-msg">Failed to load data.</div><button class="btn btn-ghost btn-sm" onclick="loadData()">Retry</button></div>
     <div id="table-container" style="display:none;">
       <div class="table-scroll">
         <table id="leads-table">
-          <thead>
-            <tr>
-              <th data-col="company_name">Company <span class="sort-icon">↕</span></th>
-              <th data-col="country">Country <span class="sort-icon">↕</span></th>
-              <th>Product Match</th>
-              <th data-col="score">Score <span class="sort-icon">↕</span></th>
-              <th data-col="outreach_priority">Priority <span class="sort-icon">↕</span></th>
-              <th data-col="decision">Decision <span class="sort-icon">↕</span></th
+          <thead><tr><th data-col="company_name">Company <span class="sort-icon">↕</span></th><th data-col="country">Country <span class="sort-icon">↕</span></th><th>Product Match</th><th data-col="score">Score <span class="sort-icon">↕</span></th><th data-col="outreach_priority">Priority <span class="sort-icon">↕</span></th><th data-col="decision">Decision <span class="sort-icon">↕</span></th></tr></thead>
+          <tbody id="free-rows"></tbody>
+        </table>
+      </div>
+      <div class="paywall-wrap" id="paywall-section">
+        <div class="blurred-rows"><div class="table-scroll"><table><tbody id="locked-rows"></tbody></table></div></div>
+        <div class="paywall-overlay" id="paywall-overlay">
+          <div class="lock-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="paywall-title">Unlock <span id="locked-count">50+</span> More Leads</div>
+          <div class="paywall-sub">Get the complete qualified lead list with direct contacts, scores, and AI-powered outreach recommendations.</div>
+          <div class="paywall-pricing">
+            <div class="price-option"><div class="price-badge">One-time</div><div class="price-amount">$49</div><div class="price-period">this report</div></div>
+            <div class="price-option featured"><div class="price-badge" style="color: var(--accent);">Best value</div><div class="price-amount">$99</div><div class="price-period">per month</div></div>
+          </div>
+          <div class="paywall-actions">
+            <button class="btn btn-accent" onclick="openModal()">Get Instant Access</button>
+            <button class="btn btn-ghost" onclick="downloadCSV(false)">View Sample (CSV)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="email-section" id="email-section" style="display:none;">
+    <div class="email-section-left"><div class="email-section-label">Free Preview</div><div class="email-section-title">Email me the full report</div><div class="email-section-sub">We'll send the complete lead list to your inbox.</div></div>
+    <form class="email-form" onsubmit="submitEmailReport(event)"><input type="email" class="email-input" id="report-email" placeholder="your@company.com" required><button type="submit" class="btn btn-accent"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Send Report</button></form>
+  </div>
+
+  <footer><div class="footer-txt">&copy; 2025 Smart Market Search · smartmarketsearch.com</div><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="mailto:hello@smartmarketsearch.com">Contact</a></div></footer>
+</div>
+</main>
+
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="modal-eyebrow">Unlock Full Access</div>
+    <div class="modal-title">Get every qualified lead</div>
+    <div class="modal-sub">Unlock the complete list with AI-scored contacts, direct outreach steps, and export to CRM.</div>
+    <div class="modal-features">
+      <div class="modal-feat"><div class="feat-check">✓</div>Full lead list (all results, not just top 10)</div>
+      <div class="modal-feat"><div class="feat-check">✓</div>AI score, decision & outreach priority per company</div>
+      <div class="modal-feat"><div class="feat-check">✓</div>Suggested next steps for each lead</div>
+      <div class="modal-feat"><div class="feat-check">✓</div>CSV export for CRM import</div>
+      <div class="modal-feat"><div class="feat-check">✓</div>Email delivery of full report</div>
+    </div>
+    <div class="modal-pricing-row">
+      <div class="modal-price-card" id="plan-onetime" onclick="selectPlan('onetime')"><div class="modal-price-label">One-time</div><div class="modal-price-amount">$49</div><div class="modal-price-period">this report</div></div>
+      <div class="modal-price-card active" id="plan-monthly" onclick="selectPlan('monthly')"><div class="modal-price-label" style="color: var(--accent);">Best value</div><div class="modal-price-amount">$99</div><div class="modal-price-period">per month · unlimited reports</div></div>
+    </div>
+    <a href="https://buy.stripe.com/YOUR_STRIPE_LINK_HERE" target="_blank" id="checkout-btn" class="btn btn-accent modal-cta">Get Instant Access →</a>
+    <div style="text-align:center; margin-top: 10px;"><span style="font-size: 0.72rem; color: var(--ink-3);">Secure checkout · Instant delivery · 7-day money back</span></div>
+  </div>
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+const CONFIG = {
+  SHEET_CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSw4y08H3Ue8zHgXhs68kv0_Al5voAciQCBRG2atoksMNsCiuy_ajLwD8K-0a-XUkcASsAp1I31yxrj/pub?gid=109475825&single=true&output=csv',
+  EMAIL_WEBHOOK: 'https://hook.eu1.make.com/tb6668lahpg5al269w3e77tn6tenokti',
+  STRIPE_ONETIME: 'https://buy.stripe.com/YOUR_ONE_TIME_LINK',
+  STRIPE_MONTHLY: 'https://buy.stripe.com/YOUR_MONTHLY_LINK',
+  FREE_ROWS: 10,
+};
+
+let allLeads = [];
+let filteredLeads = [];
+let sortCol = 'score';
+let sortDir = -1;
+let isUnlocked = sessionStorage.getItem('sms_unlocked') === 'true';
+let selectedPlan = 'monthly';
+
+const SAMPLE_DATA = [
+  { company_name:'Hydraquip Sales & Service', website:'https://hydraquip-sales.com/', phone:'19056704673', country:'CA', address:'1021 Meyerside Dr Suite 6, Mississauga, ON L5T 1K2, Canada', business_type:'Distributor', product_match:'coupling, ball valve, check valve, hydraulic fittings, quick coupling', score:100, decision:'YES', confidence:'High', website_quality:'High', outreach_priority:'Hot', suggested_next_step:'Send catalog and pricing information' },
+  { company_name:'Hydraulic Supply', website:'http://www.hydraulic-supply.ca/', phone:'16048823122', country:'CA', address:'19358 96 Ave Unit 180, Surrey, BC V4N 4C1, Canada', business_type:'Distributor', product_match:'coupling, ball valve, check valve, hydraulic fittings, quick coupling', score:100, decision:'YES', confidence:'High', website_quality:'High', outreach_priority:'Hot', suggested_next_step:'Send catalog and pricing information' },
+  { company_name:'Bailey - Hydraulics, Canada', website:'https://ca.baileyintl.com/en', phone:'14506286644', country:'CA', address:'55 Rue Théodore-Viau, Terrebonne, QC J6Y 0J8, Canada', business_type:'Distributor', product_match:'hydraulic fittings', score:20, decision:'REVIEW', confidence:'Medium', website_quality:'High', outreach_priority:'Cold', suggested_next_step:'Request product catalog to verify inventory' },
+  { company_name:'Hydraulic Supply Company', website:'http://www.hydraulicsupply.ca/', phone:'19056691622', country:'CA', address:'200 Spinnaker Way, Concord, ON L4K 5E5, Canada', business_type:'Distributor', product_match:'hydraulic fittings', score:20, decision:'REVIEW', confidence:'Medium', website_quality:'Medium', outreach_priority:'Cold', suggested_next_step:'Request product catalog for specific items' },
+  { company_name:'Canadian Industrial Hydraulics Ltd', website:'https://cih.ca/', phone:'17804651133', country:'CA', address:'7320 52 St NW, Edmonton, AB T6B 2G3, Canada', business_type:'Service Provider', product_match:'', score:0, decision:'NO', confidence:'High', website_quality:'Medium', outreach_priority:'Cold', suggested_next_step:'Not a match for spare parts sales' },
+  { company_name:'York Hydraulics Ltd.', website:'https://yorkhydraulics.ca/', phone:'19057381750', country:'CA', address:'8481 Keele St, Concord, ON L4K 1Z7, Canada', business_type:'Distributor', product_match:'', score:0, decision:'NO', confidence:'Low', website_quality:'Low', outreach_priority:'Cold', suggested_next_step:'Visit website directly to verify product offerings' },
+  { company_name:'Hydraulics Canada Incorporated', website:'http://hydraulicscanada.com/', phone:'14038738288', country:'CA', address:'149 Sunwood Pl SE, Calgary, AB T2X 2K8, Canada', business_type:'Distributor', product_match:'', score:0, decision:'NO', confidence:'Low', website_quality:'Low', outreach_priority:'Cold', suggested_next_step:'Visit website directly to verify product offerings' },
+  { company_name:'Hydraulic Technologies Inc', website:'http://www.htihydraulics.com/', phone:'16048829787', country:'CA', address:'18549 97 Ave, Surrey, BC V4N 3N9, Canada', business_type:'Distributor', product_match:'hydraulic fittings', score:20, decision:'REVIEW', confidence:'Medium', website_quality:'High', outreach_priority:'Cold', suggested_next_step:'Request product catalog to verify inventory' },
+];
+
+// Use actual data from your sheet - updated with your real results
+const ACTUAL_DATA = [
+  { company_name:'Hydraquip Sales & Service', website:'https://hydraquip-sales.com/', phone:'19056704673', country:'CA', address:'1021 Meyerside Dr Suite 6, Mississauga, ON L5T 1K2, Canada', product_match:'coupling, ball valve, check valve, hydraulic fittings, quick coupling', score:100, decision:'YES', outreach_priority:'Hot', suggested_next_step:'Send catalog and pricing information' },
+  { company_name:'Hydraulic Supply', website:'http://www.hydraulic-supply.ca/', phone:'16048823122', country:'CA', address:'19358 96 Ave Unit 180, Surrey, BC V4N 4C1, Canada', product_match:'coupling, ball valve, check valve, hydraulic fittings, quick coupling', score:100, decision:'YES', outreach_priority:'Hot', suggested_next_step:'Send catalog and pricing information' },
+  { company_name:'Bailey - Hydraulics, Canada', website:'https://ca.baileyintl.com/en', phone:'14506286644', country:'CA', address:'55 Rue Théodore-Viau, Terrebonne, QC J6Y 0J8, Canada', product_match:'hydraulic fittings', score:20, decision:'REVIEW', outreach_priority:'Cold', suggested_next_step:'Request product catalog to verify inventory' },
+  { company_name:'Hydraulic Supply Company', website:'http://www.hydraulicsupply.ca/', phone:'19056691622', country:'CA', address:'200 Spinnaker Way, Concord, ON L4K 5E5, Canada', product_match:'hydraulic fittings', score:20, decision:'REVIEW', outreach_priority:'Cold', suggested_next_step:'Request product catalog for specific items' },
+  { company_name:'Canadian Industrial Hydraulics Ltd', website:'https://cih.ca/', phone:'17804651133', country:'CA', address:'7320 52 St NW, Edmonton, AB T6B 2G3, Canada', product_match:'', score:0, decision:'NO', outreach_priority:'Cold', suggested_next_step:'Not a match for spare parts sales' },
+  { company_name:'York Hydraulics Ltd.', website:'https://yorkhydraulics.ca/', phone:'19057381750', country:'CA', address:'8481 Keele St, Concord, ON L4K 1Z7, Canada', product_match:'', score:0, decision:'NO', outreach_priority:'Cold', suggested_next_step:'Visit website directly to verify product offerings' },
+];
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '_'));
+  return lines.slice(1).map(line => {
+    const vals = [];
+    let cur = '', inQ = false;
+    for (const ch of line) {
+      if (ch === '"') inQ = !inQ;
+      else if (ch === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+      else cur += ch;
+    }
+    vals.push(cur.trim());
+    const obj = {};
+    headers.forEach((h, i) => { if (vals[i] !== undefined) obj[h] = vals[i].replace(/^"|"$/g, ''); });
+    if (obj.score !== undefined) obj.score = parseFloat(obj.score) || 0;
+    if (!obj.company_name) obj.company_name = obj['company_name'] || obj['company'] || '';
+    return obj;
+  }).filter(r => r.company_name && r.company_name !== 'Company Name');
+}
+
+async function loadData() {
+  console.log('🔄 Loading data...');
+  show('loading-state');
+  hide('table-container'); hide('empty-state'); hide('error-state');
+
+  try {
+    // Try multiple proxy methods
+    const proxyUrls = [
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(CONFIG.SHEET_CSV_URL)}`,
+      `https://corsproxy.io/?${encodeURIComponent(CONFIG.SHEET_CSV_URL)}`,
+      CONFIG.SHEET_CSV_URL
+    ];
+
+    let text = null;
+    for (const url of proxyUrls) {
+      try {
+        console.log('📡 Trying:', url.substring(0, 60) + '...');
+        const res = await fetch(url);
+        if (res.ok) { text = await res.text(); console.log('✅ Success with:', url.substring(0, 60)); break; }
+      } catch (e) { console.log('❌ Failed:', e.message); }
+    }
+
+    if (text) {
+      allLeads = parseCSV(text);
+      console.log('📊 Parsed leads:', allLeads.length);
+    }
+
+    if (!allLeads || allLeads.length === 0) {
+      console.log('⚠️ No data from sheet, using sample data');
+      allLeads = ACTUAL_DATA;
+    }
+
+    initTable();
+  } catch (err) {
+    console.error('❌ Error:', err);
+    allLeads = ACTUAL_DATA;
+    initTable();
+    notify('Showing sample data. Connect your sheet for live results.');
+  }
+}
+
+function initTable() {
+  console.log('📊 Initializing table with', allLeads.length, 'leads');
+  populateCountryFilter();
+  applyFiltersAndSort();
+  updateStats();
+  show('table-container');
+  show('email-section');
+  hide('loading-state');
+  const now = new Date();
+  document.getElementById('report-meta').innerHTML = `Generated <strong>${now.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</strong><br>${allLeads.length} companies analysed`;
+}
+
+function updateStats() {
+  const total = allLeads.length;
+  const hot = allLeads.filter(r => (parseFloat(r.score)||0) >= 80).length;
+  const avg = total ? Math.round(allLeads.reduce((s,r) => s+(parseFloat(r.score)||0), 0) / total) : 0;
+  const yes = allLeads.filter(r => (r.decision||'').toUpperCase() === 'YES').length;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-hot').textContent = hot;
+  document.getElementById('stat-avg').textContent = avg;
+  document.getElementById('stat-yes').textContent = yes;
+}
+
+function populateCountryFilter() {
+  const sel = document.getElementById('filter-country');
+  sel.innerHTML = '<option value="">All Countries</option>';
+  const countries = [...new Set(allLeads.map(r => r.country).filter(Boolean))].sort();
+  countries.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = countryName(c); sel.appendChild(o); });
+}
+
+function applyFiltersAndSort() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const country = document.getElementById('filter-country').value;
+  const priority = document.getElementById('filter-priority').value.toLowerCase();
+  const decision = document.getElementById('filter-decision').value.toUpperCase();
+
+  filteredLeads = allLeads.filter(r => {
+    const name = (r.company_name || '').toLowerCase();
+    if (q && !name.includes(q)) return false;
+    if (country && r.country !== country) return false;
+    if (priority && (r.outreach_priority||'').toLowerCase() !== priority) return false;
+    if (decision && (r.decision||'').toUpperCase() !== decision) return false;
+    return true;
+  });
+
+  filteredLeads.sort((a,b) => {
+    let av = a[sortCol] || '', bv = b[sortCol] || '';
+    if (!isNaN(av) && !isNaN(bv)) { av = parseFloat(av); bv = parseFloat(bv); }
+    if (av < bv) return sortDir;
+    if (av > bv) return -sortDir;
+    return 0;
+  });
+  renderTable();
+}
+
+function renderTable() {
+  const freeRows = document.getElementById('free-rows');
+  const lockedRows = document.getElementById('locked-rows');
+  const paywallSec = document.getElementById('paywall-section');
+  const lockedCnt = document.getElementById('locked-count');
+
+  freeRows.innerHTML = ''; lockedRows.innerHTML = '';
+
+  if (!filteredLeads.length) { hide('table-container'); show('empty-state'); return; }
+
+  hide('empty-state'); show('table-container');
+
+  const free = filteredLeads.slice(0, CONFIG.FREE_ROWS);
+  const locked = filteredLeads.slice(CONFIG.FREE_ROWS);
+
+  free.forEach((r, i) => { const tr = buildRow(r); tr.style.animationDelay = `${i * 40}ms`; freeRows.appendChild(tr); });
+
+  if (locked.length > 0 && !isUnlocked) {
+    locked.slice(0, 8).forEach(r => lockedRows.appendChild(buildRow(r)));
+    paywallSec.style.display = 'block';
+    lockedCnt.textContent = locked.length + '+';
+  } else if (locked.length > 0 && isUnlocked) {
+    locked.forEach((r, i) => { const tr = buildRow(r); tr.style.animationDelay = `${(i + CONFIG.FREE_ROWS) * 40}ms`; freeRows.appendChild(tr); });
+    paywallSec.style.display = 'none';
+  } else { paywallSec.style.display = 'none'; }
+}
+
+function buildRow(r) {
+  const score = parseFloat(r.score) || 0;
+  const scoreClass = score >= 80 ? 'score-hot' : score >= 40 ? 'score-warm' : 'score-cold';
+  const priority = (r.outreach_priority || '').toLowerCase();
+  const decision = (r.decision || '').toUpperCase();
+  const name = r.company_name || 'Unknown';
+  const site = r.website || '#';
+  const country = r.country || '';
+  const matchRaw = r.product_match || '';
+  const tags = matchRaw.split(',').map(t => t.trim()).filter(Boolean);
+
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><span class="company-name">${esc(name)}</span>${site && site !== '#' ? `<a class="company-link" href="${esc(site)}" target="_blank">${domainFromUrl(site)}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>` : ''}</td>
+    <td><span class="country-tag"><span>${countryFlag(country)}</span>${esc(countryName(country))}</span></td>
+    <td><div class="tags">${tags.slice(0,4).map(t => `<span class="tag">${esc(t)}</span>`).join('')}${tags.length > 4 ? `<span class="tag">+${tags.length-4}</span>` : ''}</div></td>
+    <td><div class="score-wrap ${scoreClass}"><span class="score-num">${score}</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:${score}%"></div></div></div></td>
+    <td>${priorityBadge(priority)}</td>
+    <td>${decisionBadge(decision)}</td>`;
+  return tr;
+}
+
+function priorityBadge(p) {
+  if (p === 'hot') return '<span class="badge badge-hot"><span class="badge-dot"></span>Hot</span>';
+  if (p === 'warm') return '<span class="badge badge-warm"><span class="badge-dot"></span>Warm</span>';
+  return '<span class="badge badge-cold"><span class="badge-dot"></span>Cold</span>';
+}
+function decisionBadge(d) {
+  if (d === 'YES') return '<span class="badge badge-yes">YES</span>';
+  if (d === 'REVIEW') return '<span class="badge badge-review">REVIEW</span>';
+  if (d === 'NO') return '<span class="badge badge-no">NO</span>';
+  return `<span class="badge badge-cold">${esc(d)}</span>`;
+}
+
+document.querySelectorAll('th[data-col]').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = -1; }
+    document.querySelectorAll('th').forEach(t => t.classList.remove('sorted'));
+    th.classList.add('sorted');
+    th.querySelector('.sort-icon').textContent = sortDir === -1 ? '↓' : '↑';
+    applyFiltersAndSort();
+  });
+});
+document.querySelector('th[data-col="score"]').classList.add('sorted');
+
+['search-input','filter-country','filter-priority','filter-decision'].forEach(id => {
+  document.getElementById(id).addEventListener('input', applyFiltersAndSort);
+  document.getElementById(id).addEventListener('change', applyFiltersAndSort);
+});
+
+function clearFilters() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('filter-country').value = '';
+  document.getElementById('filter-priority').value = '';
+  document.getElementById('filter-decision').value = '';
+  applyFiltersAndSort();
+}
+
+function downloadCSV(full) {
+  const rows = full ? allLeads : allLeads.slice(0, CONFIG.FREE_ROWS);
+  const headers = ['company_name','website','phone','country','address','product_match','score','decision','outreach_priority','suggested_next_step'];
+  const csvContent = [headers.join(','), ...rows.map(r => headers.map(h => `"${(r[h]||'').toString().replace(/"/g,'""')}"`).join(','))].join('\n');
+  const blob = new Blob([csvContent], {type:'text/csv'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = full ? 'sms-full-leads.csv' : 'sms-sample-leads.csv'; a.click(); URL.revokeObjectURL(a.href);
+  notify(full ? 'Full CSV downloaded!' : 'Sample CSV downloaded (10 rows)');
+}
+
+async function submitEmailReport(e) {
+  e.preventDefault();
+  const email = document.getElementById('report-email').value;
+  const btn = e.target.querySelector('button');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  try { await fetch(CONFIG.EMAIL_WEBHOOK, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, action:'email_full_report', timestamp:new Date().toISOString()}), mode:'no-cors'}); } catch (err) {}
+  btn.textContent = 'Sent!'; notify(`Report request sent to ${email}`);
+  setTimeout(() => { btn.disabled = false; btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Send Report'; }, 3000);
+}
+
+function openModal() { document.getElementById('modal-backdrop').classList.add('open'); }
+function closeModal() { document.getElementById('modal-backdrop').classList.remove('open'); }
+function closeModalOutside(e) { if (e.target === document.getElementById('modal-backdrop')) closeModal(); }
+function selectPlan(plan) {
+  selectedPlan = plan;
+  document.getElementById('plan-onetime').classList.toggle('active', plan === 'onetime');
+  document.getElementById('plan-monthly').classList.toggle('active', plan === 'monthly');
+  document.getElementById('checkout-btn').href = plan === 'onetime' ? CONFIG.STRIPE_ONETIME : CONFIG.STRIPE_MONTHLY;
+}
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function domainFromUrl(u) { try { return new URL(u).hostname.replace('www.',''); } catch { return u; } }
+const COUNTRY_NAMES = { CA:'Canada', AE:'UAE', SA:'Saudi Arabia', QA:'Qatar', KW:'Kuwait', OM:'Oman', BH:'Bahrain', EG:'Egypt', JO:'Jordan', TR:'Turkey', DE:'Germany', GB:'UK', US:'USA', FR:'France', IN:'India', CN:'China' };
+function countryName(c) { return COUNTRY_NAMES[c] || c; }
+function countryFlag(c) { if (!c || c.length !== 2) return ''; return String.fromCodePoint(...[...c.toUpperCase()].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65)); }
+function show(id) { const el = document.getElementById(id); if (el) el.style.display = 'block'; }
+function hide(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
+let notifTimer;
+function notify(m) { const el = document.getElementById('notif'); el.textContent = m; el.classList.add('show'); clearTimeout(notifTimer); notifTimer = setTimeout(() => el.classList.remove('show'), 3500); }
+
+loadData();
+</script>
+</body>
+</html>

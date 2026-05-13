@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -297,7 +297,7 @@ tbody tr { opacity: 0; animation: fadeUp 0.35s ease forwards; }
   <div class="table-wrap">
     <div id="loading-state"><div class="spinner"></div><div class="loading-txt">Fetching your lead report…</div></div>
     <div id="empty-state"><div class="empty-icon">🔍</div><div class="empty-txt">No results match your filters.</div><button class="btn btn-ghost btn-sm" onclick="clearFilters()">Clear filters</button></div>
-    <div id="error-state"><div class="empty-icon">⚠️</div><div class="empty-txt" id="error-msg">Failed to load data.</div><button class="btn btn-ghost btn-sm" onclick="loadData()">Retry</button></div>
+    <div id="error-state"><div class="empty-icon">⚠️</div><div class="empty-txt" id="error-msg">Failed to load data. Check console for details.</div><button class="btn btn-ghost btn-sm" onclick="loadData()">Retry</button></div>
     <div id="table-container" style="display:none;">
       <div class="table-scroll">
         <table id="leads-table">
@@ -373,32 +373,21 @@ let sortDir = -1;
 let isUnlocked = sessionStorage.getItem('sms_unlocked') === 'true';
 let selectedPlan = 'monthly';
 
-const SAMPLE_DATA = [
-  { company_name:'Hydraquip Sales & Service', website:'https://hydraquip-sales.com/', phone:'19056704673', country:'CA', address:'1021 Meyerside Dr Suite 6, Mississauga, ON L5T 1K2, Canada', business_type:'Distributor', product_match:'coupling, ball valve, check valve, hydraulic fittings, quick coupling', score:100, decision:'YES', confidence:'High', website_quality:'High', outreach_priority:'Hot', suggested_next_step:'Send catalog and pricing information' },
-  { company_name:'Hydraulic Supply', website:'http://www.hydraulic-supply.ca/', phone:'16048823122', country:'CA', address:'19358 96 Ave Unit 180, Surrey, BC V4N 4C1, Canada', business_type:'Distributor', product_match:'coupling, ball valve, check valve, hydraulic fittings, quick coupling', score:100, decision:'YES', confidence:'High', website_quality:'High', outreach_priority:'Hot', suggested_next_step:'Send catalog and pricing information' },
-  { company_name:'Bailey - Hydraulics, Canada', website:'https://ca.baileyintl.com/en', phone:'14506286644', country:'CA', address:'55 Rue Théodore-Viau, Terrebonne, QC J6Y 0J8, Canada', business_type:'Distributor', product_match:'hydraulic fittings', score:20, decision:'REVIEW', confidence:'Medium', website_quality:'High', outreach_priority:'Cold', suggested_next_step:'Request product catalog to verify inventory' },
-  { company_name:'Hydraulic Supply Company', website:'http://www.hydraulicsupply.ca/', phone:'19056691622', country:'CA', address:'200 Spinnaker Way, Concord, ON L4K 5E5, Canada', business_type:'Distributor', product_match:'hydraulic fittings', score:20, decision:'REVIEW', confidence:'Medium', website_quality:'Medium', outreach_priority:'Cold', suggested_next_step:'Request product catalog for specific items' },
-  { company_name:'Canadian Industrial Hydraulics Ltd', website:'https://cih.ca/', phone:'17804651133', country:'CA', address:'7320 52 St NW, Edmonton, AB T6B 2G3, Canada', business_type:'Service Provider', product_match:'', score:0, decision:'NO', confidence:'High', website_quality:'Medium', outreach_priority:'Cold', suggested_next_step:'Not a match for spare parts sales' },
-  { company_name:'York Hydraulics Ltd.', website:'https://yorkhydraulics.ca/', phone:'19057381750', country:'CA', address:'8481 Keele St, Concord, ON L4K 1Z7, Canada', business_type:'Distributor', product_match:'', score:0, decision:'NO', confidence:'Low', website_quality:'Low', outreach_priority:'Cold', suggested_next_step:'Visit website directly to verify product offerings' },
-  { company_name:'Hydraulics Canada Incorporated', website:'http://hydraulicscanada.com/', phone:'14038738288', country:'CA', address:'149 Sunwood Pl SE, Calgary, AB T2X 2K8, Canada', business_type:'Distributor', product_match:'', score:0, decision:'NO', confidence:'Low', website_quality:'Low', outreach_priority:'Cold', suggested_next_step:'Visit website directly to verify product offerings' },
-  { company_name:'Hydraulic Technologies Inc', website:'http://www.htihydraulics.com/', phone:'16048829787', country:'CA', address:'18549 97 Ave, Surrey, BC V4N 3N9, Canada', business_type:'Distributor', product_match:'hydraulic fittings', score:20, decision:'REVIEW', confidence:'Medium', website_quality:'High', outreach_priority:'Cold', suggested_next_step:'Request product catalog to verify inventory' },
-];
-
-// Use actual data from your sheet - updated with your real results
-const ACTUAL_DATA = [
-  { company_name:'Hydraquip Sales & Service', website:'https://hydraquip-sales.com/', phone:'19056704673', country:'CA', address:'1021 Meyerside Dr Suite 6, Mississauga, ON L5T 1K2, Canada', product_match:'coupling, ball valve, check valve, hydraulic fittings, quick coupling', score:100, decision:'YES', outreach_priority:'Hot', suggested_next_step:'Send catalog and pricing information' },
-  { company_name:'Hydraulic Supply', website:'http://www.hydraulic-supply.ca/', phone:'16048823122', country:'CA', address:'19358 96 Ave Unit 180, Surrey, BC V4N 4C1, Canada', product_match:'coupling, ball valve, check valve, hydraulic fittings, quick coupling', score:100, decision:'YES', outreach_priority:'Hot', suggested_next_step:'Send catalog and pricing information' },
-  { company_name:'Bailey - Hydraulics, Canada', website:'https://ca.baileyintl.com/en', phone:'14506286644', country:'CA', address:'55 Rue Théodore-Viau, Terrebonne, QC J6Y 0J8, Canada', product_match:'hydraulic fittings', score:20, decision:'REVIEW', outreach_priority:'Cold', suggested_next_step:'Request product catalog to verify inventory' },
-  { company_name:'Hydraulic Supply Company', website:'http://www.hydraulicsupply.ca/', phone:'19056691622', country:'CA', address:'200 Spinnaker Way, Concord, ON L4K 5E5, Canada', product_match:'hydraulic fittings', score:20, decision:'REVIEW', outreach_priority:'Cold', suggested_next_step:'Request product catalog for specific items' },
-  { company_name:'Canadian Industrial Hydraulics Ltd', website:'https://cih.ca/', phone:'17804651133', country:'CA', address:'7320 52 St NW, Edmonton, AB T6B 2G3, Canada', product_match:'', score:0, decision:'NO', outreach_priority:'Cold', suggested_next_step:'Not a match for spare parts sales' },
-  { company_name:'York Hydraulics Ltd.', website:'https://yorkhydraulics.ca/', phone:'19057381750', country:'CA', address:'8481 Keele St, Concord, ON L4K 1Z7, Canada', product_match:'', score:0, decision:'NO', outreach_priority:'Cold', suggested_next_step:'Visit website directly to verify product offerings' },
-];
-
 function parseCSV(text) {
+  console.log('📝 Parsing CSV, length:', text.length);
   const lines = text.trim().split('\n');
-  if (lines.length < 2) return [];
-  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '_'));
-  return lines.slice(1).map(line => {
+  if (lines.length < 2) { console.warn('⚠️ Only', lines.length, 'lines found'); return []; }
+  
+  const headers = lines[0].split(',').map(h => 
+    h.trim().replace(/^"|"$/g, '').toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '_')
+  );
+  console.log('📋 Headers:', headers);
+  
+  const results = [];
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i];
+    if (!line.trim()) continue;
+    
     const vals = [];
     let cur = '', inQ = false;
     for (const ch of line) {
@@ -407,12 +396,35 @@ function parseCSV(text) {
       else cur += ch;
     }
     vals.push(cur.trim());
+    
     const obj = {};
-    headers.forEach((h, i) => { if (vals[i] !== undefined) obj[h] = vals[i].replace(/^"|"$/g, ''); });
-    if (obj.score !== undefined) obj.score = parseFloat(obj.score) || 0;
-    if (!obj.company_name) obj.company_name = obj['company_name'] || obj['company'] || '';
-    return obj;
-  }).filter(r => r.company_name && r.company_name !== 'Company Name');
+    headers.forEach((h, idx) => { 
+      if (vals[idx] !== undefined) obj[h] = vals[idx].replace(/^"|"$/g, ''); 
+    });
+    
+    // Map common column name variations
+    obj.company_name = obj.company_name || obj['company_name'] || obj['company'] || '';
+    obj.website = obj.website || obj['website'] || '';
+    obj.phone = obj.phone || obj['phone'] || '';
+    obj.country = obj.country || obj['country'] || '';
+    obj.address = obj.address || obj['address'] || '';
+    obj.product_match = obj.product_match || obj['product_match'] || '';
+    obj.score = parseFloat(obj.score || obj['score'] || 0);
+    obj.decision = obj.decision || obj['decision'] || '';
+    obj.outreach_priority = obj.outreach_priority || obj['outreach_priority'] || '';
+    obj.suggested_next_step = obj.suggested_next_step || obj['suggested_next_step'] || '';
+    
+    // Skip header rows and empty company names
+    if (obj.company_name && 
+        obj.company_name !== 'Company Name' && 
+        obj.company_name !== 'company_name' &&
+        obj.company_name.length > 1) {
+      results.push(obj);
+    }
+  }
+  
+  console.log('✅ Parsed', results.length, 'leads');
+  return results;
 }
 
 async function loadData() {
@@ -421,38 +433,45 @@ async function loadData() {
   hide('table-container'); hide('empty-state'); hide('error-state');
 
   try {
-    // Try multiple proxy methods
-    const proxyUrls = [
-      `https://api.allorigins.win/raw?url=${encodeURIComponent(CONFIG.SHEET_CSV_URL)}`,
-      `https://corsproxy.io/?${encodeURIComponent(CONFIG.SHEET_CSV_URL)}`,
-      CONFIG.SHEET_CSV_URL
-    ];
-
-    let text = null;
-    for (const url of proxyUrls) {
-      try {
-        console.log('📡 Trying:', url.substring(0, 60) + '...');
-        const res = await fetch(url);
-        if (res.ok) { text = await res.text(); console.log('✅ Success with:', url.substring(0, 60)); break; }
-      } catch (e) { console.log('❌ Failed:', e.message); }
+    // Try direct fetch first (works if CORS is configured)
+    console.log('📡 Attempting direct fetch...');
+    let response = await fetch(CONFIG.SHEET_CSV_URL).catch(() => null);
+    
+    if (!response || !response.ok) {
+      // Try with corsproxy.io
+      console.log('📡 Trying corsproxy.io...');
+      const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(CONFIG.SHEET_CSV_URL);
+      response = await fetch(proxyUrl).catch(() => null);
     }
-
-    if (text) {
-      allLeads = parseCSV(text);
-      console.log('📊 Parsed leads:', allLeads.length);
+    
+    if (!response || !response.ok) {
+      // Try with allorigins.win
+      console.log('📡 Trying allorigins.win...');
+      const proxyUrl2 = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(CONFIG.SHEET_CSV_URL);
+      response = await fetch(proxyUrl2).catch(() => null);
     }
-
+    
+    if (!response || !response.ok) {
+      throw new Error('All fetch methods failed');
+    }
+    
+    const text = await response.text();
+    console.log('📄 Response received, length:', text.length);
+    console.log('📄 First 200 chars:', text.substring(0, 200));
+    
+    allLeads = parseCSV(text);
+    
     if (!allLeads || allLeads.length === 0) {
-      console.log('⚠️ No data from sheet, using sample data');
-      allLeads = ACTUAL_DATA;
+      throw new Error('No leads parsed from data');
     }
-
+    
     initTable();
   } catch (err) {
-    console.error('❌ Error:', err);
-    allLeads = ACTUAL_DATA;
-    initTable();
-    notify('Showing sample data. Connect your sheet for live results.');
+    console.error('❌ Load failed:', err.message);
+    show('error-state');
+    document.getElementById('error-msg').textContent = 
+      'Unable to load live data. Please ensure your Google Sheet is published and try again. Error: ' + err.message;
+    hide('loading-state');
   }
 }
 
@@ -464,8 +483,10 @@ function initTable() {
   show('table-container');
   show('email-section');
   hide('loading-state');
+  hide('error-state');
   const now = new Date();
-  document.getElementById('report-meta').innerHTML = `Generated <strong>${now.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</strong><br>${allLeads.length} companies analysed`;
+  document.getElementById('report-meta').innerHTML = 
+    `Generated <strong>${now.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</strong><br>${allLeads.length} companies analysed`;
 }
 
 function updateStats() {
@@ -483,7 +504,12 @@ function populateCountryFilter() {
   const sel = document.getElementById('filter-country');
   sel.innerHTML = '<option value="">All Countries</option>';
   const countries = [...new Set(allLeads.map(r => r.country).filter(Boolean))].sort();
-  countries.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = countryName(c); sel.appendChild(o); });
+  countries.forEach(c => { 
+    const o = document.createElement('option'); 
+    o.value = c; 
+    o.textContent = countryName(c); 
+    sel.appendChild(o); 
+  });
 }
 
 function applyFiltersAndSort() {
@@ -519,23 +545,38 @@ function renderTable() {
 
   freeRows.innerHTML = ''; lockedRows.innerHTML = '';
 
-  if (!filteredLeads.length) { hide('table-container'); show('empty-state'); return; }
+  if (!filteredLeads.length) { 
+    hide('table-container'); 
+    show('empty-state'); 
+    return; 
+  }
 
-  hide('empty-state'); show('table-container');
+  hide('empty-state'); 
+  show('table-container');
 
   const free = filteredLeads.slice(0, CONFIG.FREE_ROWS);
   const locked = filteredLeads.slice(CONFIG.FREE_ROWS);
 
-  free.forEach((r, i) => { const tr = buildRow(r); tr.style.animationDelay = `${i * 40}ms`; freeRows.appendChild(tr); });
+  free.forEach((r, i) => { 
+    const tr = buildRow(r); 
+    tr.style.animationDelay = `${i * 40}ms`; 
+    freeRows.appendChild(tr); 
+  });
 
   if (locked.length > 0 && !isUnlocked) {
     locked.slice(0, 8).forEach(r => lockedRows.appendChild(buildRow(r)));
     paywallSec.style.display = 'block';
     lockedCnt.textContent = locked.length + '+';
   } else if (locked.length > 0 && isUnlocked) {
-    locked.forEach((r, i) => { const tr = buildRow(r); tr.style.animationDelay = `${(i + CONFIG.FREE_ROWS) * 40}ms`; freeRows.appendChild(tr); });
+    locked.forEach((r, i) => { 
+      const tr = buildRow(r); 
+      tr.style.animationDelay = `${(i + CONFIG.FREE_ROWS) * 40}ms`; 
+      freeRows.appendChild(tr); 
+    });
     paywallSec.style.display = 'none';
-  } else { paywallSec.style.display = 'none'; }
+  } else { 
+    paywallSec.style.display = 'none'; 
+  }
 }
 
 function buildRow(r) {
@@ -551,9 +592,9 @@ function buildRow(r) {
 
   const tr = document.createElement('tr');
   tr.innerHTML = `
-    <td><span class="company-name">${esc(name)}</span>${site && site !== '#' ? `<a class="company-link" href="${esc(site)}" target="_blank">${domainFromUrl(site)}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>` : ''}</td>
+    <td><span class="company-name">${esc(name)}</span>${site && site !== '#' && site !== 'http://' && site !== 'https://' ? `<a class="company-link" href="${esc(site)}" target="_blank">${domainFromUrl(site)}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>` : ''}</td>
     <td><span class="country-tag"><span>${countryFlag(country)}</span>${esc(countryName(country))}</span></td>
-    <td><div class="tags">${tags.slice(0,4).map(t => `<span class="tag">${esc(t)}</span>`).join('')}${tags.length > 4 ? `<span class="tag">+${tags.length-4}</span>` : ''}</div></td>
+    <td><div class="tags">${tags.slice(0,4).map(t => `<span class="tag">${esc(t)}</span>`).join('')}${tags.length > 4 ? `<span class="tag">+${tags.length-4}</span>` : ''}${tags.length === 0 ? '<span style="color:var(--ink-3);font-size:0.7rem;">None</span>' : ''}</div></td>
     <td><div class="score-wrap ${scoreClass}"><span class="score-num">${score}</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:${score}%"></div></div></div></td>
     <td>${priorityBadge(priority)}</td>
     <td>${decisionBadge(decision)}</td>`;
@@ -569,7 +610,7 @@ function decisionBadge(d) {
   if (d === 'YES') return '<span class="badge badge-yes">YES</span>';
   if (d === 'REVIEW') return '<span class="badge badge-review">REVIEW</span>';
   if (d === 'NO') return '<span class="badge badge-no">NO</span>';
-  return `<span class="badge badge-cold">${esc(d)}</span>`;
+  return '<span class="badge badge-cold">' + esc(d || '?') + '</span>';
 }
 
 document.querySelectorAll('th[data-col]').forEach(th => {
@@ -600,7 +641,7 @@ function clearFilters() {
 function downloadCSV(full) {
   const rows = full ? allLeads : allLeads.slice(0, CONFIG.FREE_ROWS);
   const headers = ['company_name','website','phone','country','address','product_match','score','decision','outreach_priority','suggested_next_step'];
-  const csvContent = [headers.join(','), ...rows.map(r => headers.map(h => `"${(r[h]||'').toString().replace(/"/g,'""')}"`).join(','))].join('\n');
+  const csvContent = [headers.join(','), ...rows.map(r => headers.map(h => '"' + ((r[h]||'').toString().replace(/"/g,'""')) + '"').join(','))].join('\n');
   const blob = new Blob([csvContent], {type:'text/csv'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = full ? 'sms-full-leads.csv' : 'sms-sample-leads.csv'; a.click(); URL.revokeObjectURL(a.href);
   notify(full ? 'Full CSV downloaded!' : 'Sample CSV downloaded (10 rows)');
@@ -612,7 +653,7 @@ async function submitEmailReport(e) {
   const btn = e.target.querySelector('button');
   btn.disabled = true; btn.textContent = 'Sending…';
   try { await fetch(CONFIG.EMAIL_WEBHOOK, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, action:'email_full_report', timestamp:new Date().toISOString()}), mode:'no-cors'}); } catch (err) {}
-  btn.textContent = 'Sent!'; notify(`Report request sent to ${email}`);
+  btn.textContent = 'Sent!'; notify('Report request sent to ' + email);
   setTimeout(() => { btn.disabled = false; btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Send Report'; }, 3000);
 }
 

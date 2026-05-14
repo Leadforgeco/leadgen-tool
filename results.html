@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -373,6 +373,21 @@ let sortDir = -1;
 let isUnlocked = sessionStorage.getItem('sms_unlocked') === 'true';
 let selectedPlan = 'monthly';
 
+// Get search parameters from sessionStorage
+const searchCountry = sessionStorage.getItem('sms_search_country') || '';
+const searchSector = sessionStorage.getItem('sms_search_sector') || '';
+const searchEmail = sessionStorage.getItem('sms_search_email') || '';
+
+console.log('🔍 Search params:', { country: searchCountry, sector: searchSector });
+
+// Pre-fill email field
+if (searchEmail) {
+  document.addEventListener('DOMContentLoaded', () => {
+    const emailInput = document.getElementById('report-email');
+    if (emailInput) emailInput.value = searchEmail;
+  });
+}
+
 function parseCSV(text) {
   console.log('📝 Parsing CSV, length:', text.length);
   const lines = text.trim().split('\n');
@@ -402,7 +417,6 @@ function parseCSV(text) {
       if (vals[idx] !== undefined) obj[h] = vals[idx].replace(/^"|"$/g, ''); 
     });
     
-    // Map common column name variations
     obj.company_name = obj.company_name || obj['company_name'] || obj['company'] || '';
     obj.website = obj.website || obj['website'] || '';
     obj.phone = obj.phone || obj['phone'] || '';
@@ -414,7 +428,6 @@ function parseCSV(text) {
     obj.outreach_priority = obj.outreach_priority || obj['outreach_priority'] || '';
     obj.suggested_next_step = obj.suggested_next_step || obj['suggested_next_step'] || '';
     
-    // Skip header rows and empty company names
     if (obj.company_name && 
         obj.company_name !== 'Company Name' && 
         obj.company_name !== 'company_name' &&
@@ -423,7 +436,7 @@ function parseCSV(text) {
     }
   }
   
-  console.log('✅ Parsed', results.length, 'leads');
+  console.log('✅ Parsed', results.length, 'total leads');
   return results;
 }
 
@@ -433,46 +446,47 @@ async function loadData() {
   hide('table-container'); hide('empty-state'); hide('error-state');
 
   try {
-    // Try direct fetch first (works if CORS is configured)
-    console.log('📡 Attempting direct fetch...');
     let response = await fetch(CONFIG.SHEET_CSV_URL).catch(() => null);
-    
     if (!response || !response.ok) {
-      // Try with corsproxy.io
-      console.log('📡 Trying corsproxy.io...');
       const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(CONFIG.SHEET_CSV_URL);
       response = await fetch(proxyUrl).catch(() => null);
     }
-    
     if (!response || !response.ok) {
-      // Try with allorigins.win
-      console.log('📡 Trying allorigins.win...');
       const proxyUrl2 = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(CONFIG.SHEET_CSV_URL);
       response = await fetch(proxyUrl2).catch(() => null);
     }
-    
-    if (!response || !response.ok) {
-      throw new Error('All fetch methods failed');
-    }
+    if (!response || !response.ok) throw new Error('All fetch methods failed');
     
     const text = await response.text();
-    console.log('📄 Response received, length:', text.length);
-    console.log('📄 First 200 chars:', text.substring(0, 200));
-    
     allLeads = parseCSV(text);
     
-    if (!allLeads || allLeads.length === 0) {
-      throw new Error('No leads parsed from data');
+    if (!allLeads || allLeads.length === 0) throw new Error('No leads parsed');
+    
+    // Filter by search country
+    if (searchCountry) {
+      const before = allLeads.length;
+      allLeads = allLeads.filter(r => {
+        const leadCountry = (r.country || '').toUpperCase();
+        const searchUpper = searchCountry.toUpperCase();
+        return leadCountry === searchUpper || 
+               (COUNTRY_NAMES[leadCountry] || '').toUpperCase() === searchUpper ||
+               leadCountry === getCountryCode(searchCountry);
+      });
+      console.log('🌍 Filtered by country:', searchCountry, '-', before, '→', allLeads.length, 'leads');
     }
     
     initTable();
   } catch (err) {
     console.error('❌ Load failed:', err.message);
     show('error-state');
-    document.getElementById('error-msg').textContent = 
-      'Unable to load live data. Please ensure your Google Sheet is published and try again. Error: ' + err.message;
+    document.getElementById('error-msg').textContent = 'Unable to load data. Error: ' + err.message;
     hide('loading-state');
   }
+}
+
+function getCountryCode(name) {
+  const map = { 'united arab emirates':'AE', 'saudi arabia':'SA', 'qatar':'QA', 'kuwait':'KW', 'oman':'OM', 'bahrain':'BH', 'australia':'AU', 'canada':'CA', 'united states':'US', 'united kingdom':'GB', 'germany':'DE', 'france':'FR' };
+  return map[(name || '').toLowerCase()] || '';
 }
 
 function initTable() {
@@ -592,7 +606,7 @@ function buildRow(r) {
 
   const tr = document.createElement('tr');
   tr.innerHTML = `
-    <td><span class="company-name">${esc(name)}</span>${site && site !== '#' && site !== 'http://' && site !== 'https://' ? `<a class="company-link" href="${esc(site)}" target="_blank">${domainFromUrl(site)}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>` : ''}</td>
+    <td><span class="company-name">${esc(name)}</span>${site && site !== '#' && site !== 'http://' && site !== 'https://' ? `<a class="company-link" href="${esc(site)}" target="_blank">${domainFromUrl(site)}</a>` : ''}</td>
     <td><span class="country-tag"><span>${countryFlag(country)}</span>${esc(countryName(country))}</span></td>
     <td><div class="tags">${tags.slice(0,4).map(t => `<span class="tag">${esc(t)}</span>`).join('')}${tags.length > 4 ? `<span class="tag">+${tags.length-4}</span>` : ''}${tags.length === 0 ? '<span style="color:var(--ink-3);font-size:0.7rem;">None</span>' : ''}</div></td>
     <td><div class="score-wrap ${scoreClass}"><span class="score-num">${score}</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:${score}%"></div></div></div></td>
@@ -669,7 +683,7 @@ function selectPlan(plan) {
 
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function domainFromUrl(u) { try { return new URL(u).hostname.replace('www.',''); } catch { return u; } }
-const COUNTRY_NAMES = { CA:'Canada', AE:'UAE', SA:'Saudi Arabia', QA:'Qatar', KW:'Kuwait', OM:'Oman', BH:'Bahrain', EG:'Egypt', JO:'Jordan', TR:'Turkey', DE:'Germany', GB:'UK', US:'USA', FR:'France', IN:'India', CN:'China' };
+const COUNTRY_NAMES = { CA:'Canada', AE:'UAE', SA:'Saudi Arabia', QA:'Qatar', KW:'Kuwait', OM:'Oman', BH:'Bahrain', EG:'Egypt', JO:'Jordan', TR:'Turkey', DE:'Germany', GB:'UK', US:'USA', FR:'France', IN:'India', CN:'China', AU:'Australia' };
 function countryName(c) { return COUNTRY_NAMES[c] || c; }
 function countryFlag(c) { if (!c || c.length !== 2) return ''; return String.fromCodePoint(...[...c.toUpperCase()].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65)); }
 function show(id) { const el = document.getElementById(id); if (el) el.style.display = 'block'; }

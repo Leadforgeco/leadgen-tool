@@ -259,7 +259,7 @@
   }
   .btn-submit:not(:disabled):hover .btn-arrow { transform: translateX(3px); }
 
-  #form-panel, #loading-panel { display: none; }
+  #form-panel, #loading-panel, #success-panel { display: none; }
   #form-panel { display: block; }
 
   #loading-panel {
@@ -291,18 +291,103 @@
     color: var(--ink-3);
   }
 
-  .loading-dots::after {
-    content: '';
-    animation: dots 1.4s steps(4, end) infinite;
+  #success-panel {
+    padding: 3rem 0 1.5rem;
+    text-align: center;
   }
 
-  @keyframes dots {
-    0%   { content: ''; }
-    25%  { content: '.'; }
-    50%  { content: '..'; }
-    75%  { content: '...'; }
-    100% { content: ''; }
+  .success-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--accent-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
   }
+
+  .success-icon svg { display: block; }
+
+  .success-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.55rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.6rem;
+    line-height: 1.2;
+  }
+
+  .success-sub {
+    font-size: 0.9rem;
+    color: var(--ink-2);
+    max-width: 420px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  .success-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.35rem 0.9rem;
+  }
+
+  .success-detail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .btn-new {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 1.5rem;
+    padding: 0.55rem 1.1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--ink-2);
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .btn-new:hover { background: var(--paper); color: var(--ink); }
+
+  .btn-view {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.75rem;
+    padding: 0.65rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-view:hover { background: var(--accent-dark); }
 
   .trust-bar {
     display: flex;
@@ -344,7 +429,7 @@
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  #loading-panel { animation: fadeUp 0.3s ease; }
+  #loading-panel, #success-panel { animation: fadeUp 0.3s ease; }
 </style>
 </head>
 <body>
@@ -363,7 +448,7 @@
     </div>
     <div class="logo-text">
       Smart Market Search
-      <span>B2B Intelligence Platform</span>
+      <span>B2B Lead Intelligence</span>
     </div>
   </div>
 
@@ -449,7 +534,7 @@
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
-              Results in seconds
+              Report in ~5 min
             </div>
             <div class="trust-item">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -466,7 +551,37 @@
     <div id="loading-panel">
       <div class="spinner"></div>
       <div class="loading-title">Generating your leads</div>
-      <div class="loading-sub">Analyzing companies<span class="loading-dots"></span></div>
+      <div class="loading-sub">Analyzing companies in your target market...</div>
+    </div>
+
+    <div id="success-panel">
+      <div class="success-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b84c1e" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <div class="success-title">Your search is being processed</div>
+      <div class="success-sub">
+        We're finding and analyzing companies in <strong id="success-country"></strong>. 
+        This takes about 5-10 minutes. Your results will be ready shortly.
+      </div>
+      <div class="success-detail">
+        <span class="success-detail-dot"></span>
+        Report will be sent to <strong id="confirm-email" style="margin-left:3px; font-weight:500; color: var(--ink-2);"></strong>
+      </div>
+      <br>
+      <button class="btn-view" onclick="window.location.href='results.html'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        View Results Now
+      </button>
+      <br>
+      <button class="btn-new" onclick="resetForm()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <path d="M3.51 15a9 9 0 1 0 .49-4.95"></path>
+        </svg>
+        Generate another report
+      </button>
     </div>
   </div>
 
@@ -481,11 +596,13 @@
   const form        = document.getElementById('lead-form');
   const formPanel   = document.getElementById('form-panel');
   const loadPanel   = document.getElementById('loading-panel');
+  const successPanel = document.getElementById('success-panel');
   const submitBtn   = document.getElementById('submit-btn');
 
   function show(panel) {
     formPanel.style.display = 'none';
     loadPanel.style.display = 'none';
+    successPanel.style.display = 'none';
     panel.style.display = 'block';
   }
 
@@ -571,11 +688,25 @@
       success = true;
     }
 
-    // Redirect to results page after 2 seconds
+    // Show success message with link to results
     setTimeout(() => {
-      window.location.href = 'results.html';
+      document.getElementById('confirm-email').textContent = email;
+      document.getElementById('success-country').textContent = country;
+      show(successPanel);
+      console.log('🎉 Success panel shown - user can view results when ready');
     }, 2000);
   });
+
+  function resetForm() {
+    form.reset();
+    document.getElementById('keywords').value =
+      'coupling, ball valve, check valve, hydraulic fittings, quick coupling';
+    ['f-country','f-sector','f-type','f-email'].forEach(id => {
+      document.getElementById(id).classList.remove('has-error');
+    });
+    submitBtn.disabled = false;
+    show(formPanel);
+  }
 
   console.log('🚀 Smart Market Search loaded');
   console.log('🔗 Webhook URL:', WEBHOOK_URL);
